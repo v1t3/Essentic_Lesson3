@@ -9,6 +9,7 @@ namespace Airplane.Scripts
 
         [SerializeField] private GameObject coinPrefab;
         [SerializeField] private GameObject bombPrefab;
+        [SerializeField] private GameObject starPrefab;
 
         [SerializeField] private float waitTimeCoin = 3f;
         [SerializeField] private float startDelayCoin = 0f;
@@ -17,9 +18,14 @@ namespace Airplane.Scripts
         [SerializeField] private float waitTimeBomb = 6f;
         [SerializeField] private float startDelayBomb = 3f;
         [SerializeField] private float spawnRangeBomb = 18f;
+        
+        [SerializeField] private float waitTimeStar = 0.1f;
+        [SerializeField] private float startDelayStar = 0;
+        [SerializeField] private float spawnRangeStar = 18f;
 
         [SerializeField] private bool spawnCoin = true;
         [SerializeField] private bool spawnBomb = true;
+        [SerializeField] private bool spawnStar = true;
 
         private void Awake()
         {
@@ -30,6 +36,7 @@ namespace Airplane.Scripts
         {
             StartCoroutine(SpawnCoin());
             StartCoroutine(SpawnBomb());
+            StartCoroutine(SpawnStar());
         }        
 
         private IEnumerator SpawnCoin()
@@ -56,6 +63,24 @@ namespace Airplane.Scripts
                 Instantiate(bombPrefab, position, Random.rotation);
 
                 yield return new WaitForSeconds(waitTimeBomb);
+            }
+        }
+
+        private IEnumerator SpawnStar()
+        {
+            yield return new WaitForSeconds(startDelayStar);
+
+            while (spawnStar)
+            {
+                Vector3 position = new Vector3(
+                    transform.position.x, 
+                    Random.Range(-spawnRangeStar, spawnRangeStar),
+                    Random.Range(0, spawnRangeStar)
+                );
+
+                Instantiate(starPrefab, position, Quaternion.identity);
+
+                yield return new WaitForSeconds(waitTimeStar);
             }
         }
     }

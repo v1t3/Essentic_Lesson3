@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Airplane.Scripts
@@ -15,7 +16,16 @@ namespace Airplane.Scripts
         {
             _gameManagerScript = FindObjectOfType<GameManager>();
         }
-        
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Bullet"))
+            {
+                Destroy(other.gameObject);
+                SelfDestroy();
+            }
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.CompareTag("Player"))
@@ -29,12 +39,7 @@ namespace Airplane.Scripts
             if (other.gameObject.CompareTag("Player"))
             {
                 _gameManagerScript.UpdateLifeCount(-1);
-                
-                Transform selfTransform = gameObject.transform;
-                Destroy(Instantiate(explosionPrefab, selfTransform.position, selfTransform.rotation), 2f);
-                Destroy(Instantiate(explosionAudioPrefab, selfTransform.position, selfTransform.rotation), 1f);
-                
-                Destroy(gameObject);
+                SelfDestroy();
             }
         }
 
@@ -45,6 +50,15 @@ namespace Airplane.Scripts
                 player.transform.position, 
                 mineSpeed * Time.deltaTime
             );
+        }
+
+        private void SelfDestroy()
+        {
+            Transform selfTransform = gameObject.transform;
+            Destroy(Instantiate(explosionPrefab, selfTransform.position, selfTransform.rotation), 2f);
+            Destroy(Instantiate(explosionAudioPrefab, selfTransform.position, selfTransform.rotation), 1f);
+            
+            Destroy(gameObject);
         }
     }
 }

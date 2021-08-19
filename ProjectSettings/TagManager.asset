@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Bomb
   - Wall
+  - Bullet
   layers:
   - Default
   - TransparentFX

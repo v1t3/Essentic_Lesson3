@@ -19,12 +19,22 @@ namespace Airplane.Scripts
             if (other.gameObject.CompareTag("Player"))
             {
                 _gameManagerScript.UpdateCoinCount(1);
-
-                Transform selfTransform = gameObject.transform;
-                Destroy(Instantiate(coinAudioPrefab, selfTransform.position, selfTransform.rotation), 0.5f);
-                
-                Destroy(gameObject);
+                SelfDestroy();
             }
+            
+            if (other.gameObject.CompareTag("Bullet"))
+            {
+                Destroy(other.gameObject);
+                SelfDestroy();
+            }
+        }
+
+        private void SelfDestroy()
+        {
+            Transform selfTransform = gameObject.transform;
+            Destroy(Instantiate(coinAudioPrefab, selfTransform.position, selfTransform.rotation), 0.5f);
+            
+            Destroy(gameObject);
         }
     }
 }
