@@ -46,7 +46,7 @@ namespace Airplane.Scripts
             while (_gameManagerScript.gameActive && spawnCoin)
             {
                 Vector3 position = new Vector3(transform.position.x, Random.Range(-spawnRangeCoin, spawnRangeCoin), transform.position.z);
-                Instantiate(coinPrefab, position, Quaternion.identity);
+                Destroy(Instantiate(coinPrefab, position, Quaternion.identity), 30f);
 
                 yield return new WaitForSeconds(waitTimeCoin);
             }
@@ -60,7 +60,7 @@ namespace Airplane.Scripts
             {
                 Vector3 position = new Vector3(transform.position.x, Random.Range(-spawnRangeBomb, spawnRangeBomb), transform.position.z);
 
-                Instantiate(bombPrefab, position, Random.rotation);
+                Destroy(Instantiate(bombPrefab, position, Random.rotation), 30f);
 
                 yield return new WaitForSeconds(waitTimeBomb);
             }
@@ -78,7 +78,7 @@ namespace Airplane.Scripts
                     Random.Range(0, spawnRangeStar)
                 );
 
-                Instantiate(starPrefab, position, Quaternion.identity);
+                Destroy(Instantiate(starPrefab, position, Quaternion.identity), 30f);
 
                 yield return new WaitForSeconds(waitTimeStar);
             }
