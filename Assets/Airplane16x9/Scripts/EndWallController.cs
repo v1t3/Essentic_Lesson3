@@ -9,7 +9,7 @@ namespace Airplane.Scripts
             if (
                 other.gameObject.CompareTag("Coin")
                 || other.gameObject.CompareTag("Bomb")
-                || other.gameObject.CompareTag("Bomb")
+                || other.gameObject.CompareTag("Star")
             )
             {
                 Destroy(other.gameObject);

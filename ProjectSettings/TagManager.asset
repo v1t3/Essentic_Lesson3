@@ -10,6 +10,7 @@ TagManager:
   - Bomb
   - Wall
   - Bullet
+  - Star
   layers:
   - Default
   - TransparentFX
